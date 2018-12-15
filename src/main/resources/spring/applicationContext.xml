@@ -11,6 +11,7 @@
 	<!-- 数据库连接池 -->
 	<!-- 加载配置文件 -->
 	<context:property-placeholder location="classpath:conf/db.properties" />
+	<context:component-scan base-package="service"></context:component-scan>
 	<!-- 数据库连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
@@ -27,9 +28,13 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
+		 <!--扫描entity包,使用别名,多个用;隔开-->
+        <property name="typeAliasesPackage" value="entity"/>
+		
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="mapper" />
+        <!-- 给出需要扫描的Dao接口-->
+        <property name="basePackage" value="mapper"/>
 	</bean>
 	
 	

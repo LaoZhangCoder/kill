@@ -4,7 +4,7 @@
 <insert id="insertSucessKilled" parameterType="long">
 insert ignore into success_killed(seckill_id,user_phone) values(#{seckillId},#{userPhone})
 </insert>
-<select id="queryByidWithkilld" resultType="entity.SucessSeckill">
+<select id="queryByidWithkilld" resultType="entity.SuccessKilled">
  select
           sk.seckill_id,
           sk.user_phone,

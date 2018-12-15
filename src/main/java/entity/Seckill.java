@@ -1,54 +1,171 @@
 package entity;
-
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class Seckill {
-	 private long seckill_id;
-	private String  name;
-	 private int  number;
-	  private Date start_time;
-	 private Date end_time;
-	 private Date create_time;
-	 
-	@Override
-	public String toString() {
-		return "Seckill [seckill_id=" + seckill_id + ", name=" + name + ", number=" + number + ", start_time="
-				+ start_time + ", end_time=" + end_time + ", create_time=" + create_time + "]";
+/**
+ * 秒杀库存表
+ *
+ * @author colg
+ */
+public class Seckill  implements Serializable {
+	/**
+	 * 商品库存id
+	 */
+	private String seckillId;
+
+	/**
+	 * 商品名称
+	 */
+	private String name;
+
+	/**
+	 * 库存数量
+	 */
+	private Integer number;
+
+	/**
+	 * 秒杀开始时间
+	 */
+	private Date startTime;
+
+	/**
+	 * 秒杀结束时间
+	 */
+	private Date endTime;
+
+	/**
+	 * 创建时间
+	 */
+	private Date createTime;
+
+	/**
+	 * 一对多
+	 */
+	private List<SuccessKilled> successKilleds;
+
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 获取商品库存id
+	 *
+	 * @return seckill_id - 商品库存id
+	 */
+	public String getSeckillId() {
+		return seckillId;
 	}
-	public long getSeckill_id() {
-		return seckill_id;
+
+	/**
+	 * /* 设置seckillId
+	 *
+	 * @param seckillId
+	 *            商品库存id
+	 */
+	public void setSeckillId(String seckillId) {
+		this.seckillId = seckillId == null ? null : seckillId.trim();
 	}
-	public void setSeckill_id(long seckill_id) {
-		this.seckill_id = seckill_id;
-	}
+
+	/**
+	 * 获取商品名称
+	 *
+	 * @return name - 商品名称
+	 */
 	public String getName() {
 		return name;
 	}
+
+	/**
+	 * /* 设置name
+	 *
+	 * @param name
+	 *            商品名称
+	 */
 	public void setName(String name) {
-		this.name = name;
+		this.name = name == null ? null : name.trim();
 	}
-	public int getNumber() {
+
+	/**
+	 * 获取库存数量
+	 *
+	 * @return number - 库存数量
+	 */
+	public Integer getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
+
+	/**
+	 * /* 设置number
+	 *
+	 * @param number
+	 *            库存数量
+	 */
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	public Date getStart_time() {
-		return start_time;
+
+	/**
+	 * 获取秒杀开始时间
+	 *
+	 * @return start_time - 秒杀开始时间
+	 */
+	public Date getStartTime() {
+		return startTime;
 	}
-	public void setStart_time(Date start_time) {
-		this.start_time = start_time;
+
+	/**
+	 * /* 设置startTime
+	 *
+	 * @param startTime
+	 *            秒杀开始时间
+	 */
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
-	public Date getEnd_time() {
-		return end_time;
+
+	/**
+	 * 获取秒杀结束时间
+	 *
+	 * @return end_time - 秒杀结束时间
+	 */
+	public Date getEndTime() {
+		return endTime;
 	}
-	public void setEnd_time(Date end_time) {
-		this.end_time = end_time;
+
+	/**
+	 * /* 设置endTime
+	 *
+	 * @param endTime
+	 *            秒杀结束时间
+	 */
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
-	public Date getCreate_time() {
-		return create_time;
+
+	/**
+	 * 获取创建时间
+	 *
+	 * @return create_time - 创建时间
+	 */
+	public Date getCreateTime() {
+		return createTime;
 	}
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
+
+	/**
+	 * /* 设置createTime
+	 *
+	 * @param createTime
+	 *            创建时间
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
+
+	public List<SuccessKilled> getSuccessKilleds() {
+		return successKilleds;
+	}
+
+	public void setSuccessKilleds(List<SuccessKilled> successKilleds) {
+		this.successKilleds = successKilleds;
+	}
+
 }

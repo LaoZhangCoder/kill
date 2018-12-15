@@ -2,7 +2,7 @@ package mapper;
 
 import org.apache.ibatis.annotations.Param;
 
-import entity.SucessSeckill;
+import entity.SuccessKilled;
 
 public interface SucessSeckillDao {
 	/**
@@ -17,6 +17,6 @@ public interface SucessSeckillDao {
      * @param seckillId
      * @return
      */
-    SucessSeckill queryByidWithkilld(@Param("seckillId") long seckillId,@Param("userPhone") long userPhone);
+    SuccessKilled queryByidWithkilld(@Param("seckillId") long seckillId,@Param("userPhone") long userPhone);
 		
 }

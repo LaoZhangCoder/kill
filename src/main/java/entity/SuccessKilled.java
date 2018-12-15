@@ -2,7 +2,7 @@ package entity;
 
 import java.util.Date;
 
-public class SucessSeckill {
+public class SuccessKilled {
   private long seckill_id;
   private long user_phone;
   private int state;
