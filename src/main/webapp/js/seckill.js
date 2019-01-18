@@ -68,7 +68,7 @@ var seckill={
         },
         handlerSeckill:function(seckillId, node){
         	 //获取秒杀地址,控制显示器,执行秒杀       	
-            node.hide().html('<button class="btn btn-primary btn-lg" id="killBtn">开始秒杀</button>');
+            node.hide().html('<button class="btn btn-primary btn-lg" id="killBtn">开启秒杀</button>');
         	$.get('/seckill/'+seckillId+'/exposer',{},function(result){
         		if(result&&result['exposed']){
         			//开启秒杀
@@ -76,12 +76,14 @@ var seckill={
                     var md5 = result['md5'];
                     var killUrl='/seckill/' + seckillId + '/' + md5 + '/execution';
                     //绑定一次点击事件
+                	
                     $('#killBtn').one('click', function () {
                         //执行秒杀请求
                         //1.先禁用按钮
+                    	
                     	   $(this).addClass('disabled');
                     	   $.post(killUrl, {}, function (result) {
-                               if (result && result['exposed']) {
+                               if (result && result['success']) {
                                    var killResult = result['data'];
                                    var state = killResult['state'];
                                    var stateInfo = killResult['stateInfo'];

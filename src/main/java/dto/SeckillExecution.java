@@ -13,7 +13,7 @@ public class SeckillExecution  {
 	/**
 	 * 库存商品id
 	 */
-	private String seckillId;
+	private Long seckillId;
 
 	/**
 	 * 商品秒杀状态标识（-1：无效，0：成功，1：已付款）
@@ -33,24 +33,24 @@ public class SeckillExecution  {
 	public SeckillExecution() {
 	}
 
-	public SeckillExecution(String seckillId, SeckillStatEnum statEnum) {
+	public SeckillExecution(Long seckillId, SeckillStatEnum statEnum) {
 		this.seckillId = seckillId;
 		this.state = statEnum.getState();
 		this.stateInfo = statEnum.getInfo();
 	}
 
-	public SeckillExecution(String seckillId, SeckillStatEnum statEnum, SuccessKilled successKilled) {
+	public SeckillExecution(Long seckillId, SeckillStatEnum statEnum, SuccessKilled successKilled) {
 		this.seckillId = seckillId;
 		this.state = statEnum.getState();
 		this.stateInfo = statEnum.getInfo();
 		this.successKilled = successKilled;
 	}
 
-	public String getSeckillId() {
+	public Long getSeckillId() {
 		return seckillId;
 	}
 
-	public void setSeckillId(String seckillId) {
+	public void setSeckillId(Long seckillId) {
 		this.seckillId = seckillId;
 	}
 

@@ -7,16 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import dto.Exposer;
+import dto.SeckillExecution;
 import dto.SeckillResult;
 import entity.Seckill;
+import enums.SeckillStatEnum;
+import exception.RepeatKillException;
+import exception.SeckillCloseException;
 import service.SeckillService;
 
 @Controller
@@ -47,11 +50,45 @@ public class SeckillController {
      @ResponseBody
      public Exposer getexposerurl(@PathVariable("seckillId") Long seckillId)
      {
-    	  System.out.println(16546);
+    	  
     	 Exposer result = ss.exportSeckillUrl(seckillId);
 		return result;
     	 
      }
+     @RequestMapping(value="/{seckillId}/{md5}/execution", method = RequestMethod.POST,
+             produces = {"application/json;charset=UTF-8"})
+     @ResponseBody
+     public SeckillResult<SeckillExecution> execute(@PathVariable("seckillId") Long seckillId,
+             @PathVariable("md5") String md5,
+             @CookieValue(value = "userPhone",required = false) Long userPhone)
+     {
+     if (userPhone==null)
+     {
+     return new SeckillResult<SeckillExecution>(false,"未注册");
+     }
+   
+     try {
+     SeckillExecution execution = ss.executeSeckill(seckillId, userPhone, md5);
+     return new SeckillResult<SeckillExecution>(true, execution);
+     }catch (RepeatKillException e1)
+     {
+     SeckillExecution execution=new SeckillExecution(seckillId, SeckillStatEnum.REPEAT_KILL);
+     return new SeckillResult<SeckillExecution>(true,execution);
+     }catch (SeckillCloseException e2)
+     {
+     SeckillExecution execution=new SeckillExecution(seckillId, SeckillStatEnum.END);
+     return new SeckillResult<SeckillExecution>(true,execution);
+     }
+     catch (Exception e)
+     {
+     SeckillExecution execution=new SeckillExecution(seckillId, SeckillStatEnum.INNER_ERROR);
+     return new SeckillResult<SeckillExecution>(true,execution);
+     }
+
+}
+
+
+     
 	
 }
   

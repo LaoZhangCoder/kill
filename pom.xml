@@ -108,6 +108,19 @@
 			<!-- 配置tomcat插件 -->
 			<build>
 		<plugins>
+		<!-- 配置Tomcat插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					
+					<path>/</path>
+					<url>http://192.168.25.128:8080/manager/text</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
+				</configuration>		
+			</plugin>
+		
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -134,5 +147,7 @@
 <filtering>false</filtering> 
  </resource> 
         </resources>
+        
+        
 	</build>
 </project>

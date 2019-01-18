@@ -65,6 +65,7 @@
 <!-- 开始编写交互逻辑 -->
 
 <script type="text/javascript">
+
 	$(function() {
 		// 使用EL表达式传入参数
 	
