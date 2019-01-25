@@ -64,12 +64,14 @@ web环境:tomcat7 java7。
 ![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190125132641.png)
 
 首先明显可以看出当我们增大了tomcat的最大请求线程连接数时错误率明显更少了,虽然有些也很高,但是大致趋势可以得出结论。要想具体看有多大提升,我们去掉数据当中一个各项数据最差的一个数据,然后对各项数据取平均值来进行比较
+
 优化前
 
 Average   Error%   Throughput
 5168.0    8.76      79.3
 
 优化后
+
 Average   Error%   Throughput
 5493.0      0        96.6
 
