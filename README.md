@@ -68,11 +68,13 @@ web环境:tomcat7 java7。
 优化前
 
 Average   Error%   Throughput
+
 5168.0    8.76      79.3
 
 优化后
 
 Average   Error%   Throughput
+
 5493.0      0        96.6
 
 从数据可以看出优化后平均响应时间增加了,错误率降低了,吞吐率增加了
