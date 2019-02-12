@@ -1,10 +1,13 @@
 package service;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+
+import com.google.common.hash.BloomFilter;
 
 import dto.Exposer;
 import dto.SeckillExecution;
@@ -17,15 +20,20 @@ import exception.SeckillCloseException;
 import exception.SeckillException;
 import mapper.SeckillDao;
 import mapper.SucessSeckillDao;
+import redisDao.BloomFilterUtil;
+import redisDao.RedisDao;
 @Service
 public class SekillServiceimpl implements SeckillService {
 @Autowired
 private SeckillDao sd;
 @Autowired
 private SucessSeckillDao successKilledDao;
+@Autowired
+private RedisDao rs;
 	@Override
 	public List<Seckill> getSeckillList() {
 		// TODO Auto-generated method stub
+		
 		List<Seckill> list = sd.queryAll(0, 4);
 		return list;
 	}
@@ -39,8 +47,21 @@ private SucessSeckillDao successKilledDao;
 
 	@Override
 	public Exposer exportSeckillUrl(long seckillId) {
-		 Seckill seckill = getById(seckillId);
-
+		Seckill seckill=null;
+		Seckill seckill2 = rs.getSeckill(seckillId);
+		if(seckill2!=null) {
+			seckill=seckill2;
+			System.out.println("缓存中已经有了不需要再去查数据库！");
+		}else {
+			
+		System.out.println("缓存中没有需要取查数据库了");
+		 seckill = getById(seckillId);
+		 if(seckill==null) {
+			return new Exposer(false, seckillId);
+		 }else {
+			
+		 rs.putSeckill(seckill);}
+		}
 	        //若是秒杀未开启
 	        Date startTime = seckill.getStartTime();
 	        Date endTime = seckill.getEndTime();
