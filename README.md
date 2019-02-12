@@ -104,3 +104,11 @@ Average   Error%   Throughput
 
 这是我通过查看redis-cli。可以看出这个商品已经加入了缓存并且设置了过期时间
 ![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212172938.png)
+
+我们都知道tomcat支持的并发数有限,而我们的秒杀又是高并发项目,为了进一步提高并发性,这里我搭建了tomcat集群,这里我只弄了2个,搭建过程并不难。要将服务分摊到不同的tomcat服务器上,这里我使用nginx来实现负载均衡。效果如下
+
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212202235.png)
+
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212202246.png)
+
+这里我采用的是默认的轮询式的负载均衡算法,也就是刷新一次换一个tomcat访问,当然这里我只弄了两个tomcat集群,你可以根据你的电脑配置来配置更多,当然nginx也可以弄集群。这里我也不弄了.后面我可能还会弄个数据库方面的分库分片,进一步提升并发性能
