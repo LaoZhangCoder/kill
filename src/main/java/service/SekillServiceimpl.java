@@ -20,7 +20,6 @@ import exception.SeckillCloseException;
 import exception.SeckillException;
 import mapper.SeckillDao;
 import mapper.SucessSeckillDao;
-import redisDao.BloomFilterUtil;
 import redisDao.RedisDao;
 @Service
 public class SekillServiceimpl implements SeckillService {
@@ -51,10 +50,8 @@ private RedisDao rs;
 		Seckill seckill2 = rs.getSeckill(seckillId);
 		if(seckill2!=null) {
 			seckill=seckill2;
-			System.out.println("缓存中已经有了不需要再去查数据库！");
-		}else {
 			
-		System.out.println("缓存中没有需要取查数据库了");
+		}else {
 		 seckill = getById(seckillId);
 		 if(seckill==null) {
 			return new Exposer(false, seckillId);
