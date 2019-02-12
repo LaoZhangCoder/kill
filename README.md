@@ -78,3 +78,29 @@ Average   Error%   Throughput
 5493.0      0        96.6
 
 从数据可以看出优化后平均响应时间增加了,错误率降低了,吞吐率增加了
+
+上面大部分是对Tomcat优化，接下来我们再来优化一下其他部分，我们都知道访问数据库的操作是慢的，毕竟是IO操作,因此我们可以将频繁发生数据库访问的操作加入缓存,毕竟访问内存的速度可要比访问磁盘文件快的多。这里我们来用redis来做缓存。接下来来分析那部分需要缓存。
+
+![这里本应该有个图但是丢失了](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190120175111.png)
+
+很明显这里将会有大量用户访问,大量用户将会不停的刷新等待秒杀开启,这样在秒杀开启后就会有大量的请求到后端,数据库的压力就会加大。而这部分对应的过程就是秒杀开启时,向用户返回秒杀地址。
+
+![https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212165909.png](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212165909.png)
+
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212170034.png)
+
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212170044.png)
+
+可以看出我在对应的地方加了缓存部分的代码,并且减少了缓存雪崩和缓存击穿带来的影响,当然这是单机的redis测试,集群的以后再说.我们来看下效果
+
+第一次查看这个商品时后台输出的结果
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212171732.png)
+
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212171653.png)
+
+第二次
+
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212171718.png)
+
+这是我通过查看redis-cli。可以看出这个商品已经加入了缓存并且设置了过期时间
+![](https://github.com/tomsajkdhsakjd/kill/blob/master/imgs/20190212172938.png)
